@@ -25,4 +25,6 @@ Route.group(() => {
     Route.post('register', 'AuthController.register');
 }).prefix('auth'); // auth/login
 
+
+Route.resource('interactions', 'InteractionController').apiOnly().middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');

@@ -41,7 +41,7 @@ class InteractionService {
 
       return new Response(interaction);
     } catch (e) {
-      Logger.transport('file').error('Interactionervice.getAll: ', e);
+      Logger.transport('file').error('InteractionService.getAll: ', e);
       return new Response({
         message: __('Cant get data user, please contact support', language)
       }, 422);
