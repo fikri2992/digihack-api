@@ -15,19 +15,18 @@ class OfferController {
   }
 
   async store({ auth, request, response }) {
-    const params = request.all();
-    const result = await OfferService.create(params, auth);
+    const result = await OfferService.create(request, auth);
     return response.status(result.status).send(result.data);
   }
 
   async update({ request, response, params, auth }) {
-    const result = await OfferService.update(request, params.id, auth);
+    const result = await OfferService.update(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
 
   async destroy ({response, params, auth, request}) {
     const id = params.id;
-    const result = await OfferService.delete(id, request, auth);
+    const result = await OfferService.delete(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
 
