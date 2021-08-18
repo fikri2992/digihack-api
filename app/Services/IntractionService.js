@@ -54,12 +54,12 @@ class InteractionService {
   async getById(id, auth) {
     const language = auth.current.user.language;
     try {
-      const Interaction = await Interaction.query()
+      const interaction = await Interaction.query()
         .where('id', id)
         .first();
 
       return new Response({
-        data: Interaction
+        data: interaction
       });
     } catch (e) {
       Logger.transport('file').error('InteractionService.getById: ', e);

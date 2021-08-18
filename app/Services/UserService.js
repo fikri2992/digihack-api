@@ -61,8 +61,8 @@ class UserService {
     const language = auth.current.user.language;
     try {
       const user = await User.query()
-        .where('id', id)
-        .first();
+      .where('id', id)
+      .first();
 
       return new Response({
         data: user

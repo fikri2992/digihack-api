@@ -1,6 +1,6 @@
 'use strict';
 
-const InteractionService = use('App/Services/InteractionService');
+const InteractionService = use('App/Services/IntractionService');
 const Logger = use('Logger');
 
 class InteractionController {
