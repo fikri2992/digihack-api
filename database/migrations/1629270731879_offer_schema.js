@@ -9,7 +9,7 @@ class OfferSchema extends Schema {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users');
       table.integer('client_id').unsigned();
-      table.integer('interaction_id').unsigned().references('id').inTable('interactions');
+      table.integer('interaction_id').unsigned().nullable();
       table.string('name', 255).nullable();
       table.string('slug', 255).nullable();
       table.text('description').nullable();
