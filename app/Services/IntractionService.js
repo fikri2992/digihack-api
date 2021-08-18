@@ -173,7 +173,7 @@ class InteractionService {
         await interaction.save();
 
         // get new data interaction base on id after updated successfully
-        const updatedinteraction =  await interaction.query().where('id', interaction.id).first();
+        const updatedinteraction =  await Interaction.query().where('id', interaction.id).first();
 
         return new Response({
           message: 'New interaction has been updated',
@@ -191,13 +191,13 @@ class InteractionService {
       Delete Interaction
     */
     async delete(id, auth) {
-      const lang = auth.current.user.language;
+      // const lang = auth.current.user.language || null;
       try {
         await Interaction.query().where('id', id).delete();
-        return new Response({ message: __('Interaction has been deleted', lang) })
+        return new Response({ message: __('Interaction has been deleted') })
       } catch (e) {
         Logger.transport('file').error('interactionService.delete: ', e)
-        return new Response({ message: __('Cant delete message, please contact support', lang) }, 422)
+        return new Response({ message: __('Cant delete message, please contact support') }, 422)
       }
     }
     
