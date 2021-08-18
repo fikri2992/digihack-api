@@ -35,7 +35,7 @@ class MediaController {
         const id = params.id;
         const result = await MediaService.delete(params.id, request, auth);
         console.log('data:', result.data.data)
-        const filePath = Helpers.publicPath('uploads')+'\\'+result.data.data.url;
+        const filePath = result.data.data.url;
         console.log('path:', filePath)
         const isExist = await Drive.exists(filePath);
 

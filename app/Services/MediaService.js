@@ -3,6 +3,7 @@
 const Media = use('App/Models/media');
 const Response = use('App/Class/Response');
 const Logger = use('Logger');
+const Helpers = use('Helpers');
 const Hash = use('Hash');
 const __ = use('App/Helpers/string-localize');
 const passwordStrength = require('check-password-strength');
@@ -55,7 +56,7 @@ class MediaService {
       // create new media
       const media = new Media();
       media.user_id = user_id;
-      media.url = mediaNameFormat;
+      media.url = Helpers.publicPath('uploads')+'\\'+mediaNameFormat;
       await media.save();
 
       // get new media
