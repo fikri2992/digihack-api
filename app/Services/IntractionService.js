@@ -107,7 +107,9 @@ class InteractionService {
           content, 
           status,
           is_published,
-          created_by } = body.all();
+          created_by,
+          message
+         } = body.all();
   
         // create new interaction
         const interaction = new Interaction();
@@ -119,6 +121,8 @@ class InteractionService {
         interaction.content = content;
         interaction.is_published = is_published;
         interaction.created_by = created_by;
+        interaction.message = message;
+
         await interaction.save();
   
         // get new data interaction
@@ -150,7 +154,8 @@ class InteractionService {
           content, 
           status,
           is_published,
-          created_by
+          created_by,
+          message,
         } = body.all();
 
         const interaction = await Interaction.find(id); // get data interaction base on id
@@ -164,6 +169,8 @@ class InteractionService {
         if (user_id)  interaction.user_id = user_id; 
         if (name)  interaction.name = name; 
         if (description)  interaction.description = description; 
+        if (message)  interaction.message = message; 
+
         if (type)  interaction.type = type; 
         if (content)  interaction.content = content; 
         if (status)  interaction.status = status; 

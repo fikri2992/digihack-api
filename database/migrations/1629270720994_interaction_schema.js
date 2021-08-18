@@ -11,6 +11,7 @@ class InteractionSchema extends Schema {
       table.string('name', 255).nullable();
       table.string('slug', 255).nullable();
       table.text('description').nullable();
+      table.text('message').nullable();
       table.string('type', 100).nullable();
       table.text('content').nullable();
       table.string('status', 100).nullable();
