@@ -1,0 +1,47 @@
+'use strict'
+const MediaService = use('App/Services/MediaService');
+const Helpers = use('Helpers');
+const Drive = use('Drive');
+
+class MediaController {
+    async index({ request, response, auth }) {
+        const result = await MediaService.getAllImageUrl(request, auth);
+        return response.status(result.status).send(result.data);
+    }
+
+    async upload({ request, response, auth }) {
+        const validationOptions = {
+            types: ['image'],
+            size: '1mb',
+        };
+
+        const result = await MediaService.upload(request, auth);
+
+        const imageFile = request.file('file', validationOptions);
+        await imageFile.move(Helpers.publicPath('uploads'), {
+            name: result.data.fileName,
+            overwrite: true,
+        });
+
+        return response.status(result.status).send(result.data);
+    }
+
+    async getImageUrlByUserId ({ request, response, params, auth }) {
+        const result = await MediaService.getImageUrlByUserId(params.id, request, auth);
+        return response.status(result.status).send(result.data);
+    }
+
+    async delete ({ params }) {
+        const filePath = `uploads/${params.fileName}`;
+        const isExist = await Drive.exists(filePath);
+
+        if (isExist) {
+            Drive.delete(`uploads/${params.fileName}`);
+            return 'File deleted';
+        }
+
+        return 'File does not exist';
+    }
+}
+
+module.exports = MediaController
