@@ -29,6 +29,10 @@ Route.group(() => {
 
 Route.resource('interactions', 'InteractionController').apiOnly().middleware(['auth']);
 Route.resource('offers', 'OfferController').apiOnly().middleware(['auth']);
+Route.group(() => {
+    Route.get('getByInteractionId/:id', 'OfferController.getByInteractionId');
+
+}).prefix('offers').middleware(['auth']);
 
 Route.get('users','userController.index').middleware(['auth'])
 Route.post('logout', 'AuthController.logout');

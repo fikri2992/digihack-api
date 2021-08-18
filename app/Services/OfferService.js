@@ -68,6 +68,41 @@ class OfferService {
       }, 422);
     }
   }
+
+  /**
+   * Get offer detail by interaction ID
+   **/
+   async getByInteractionId(id, body, auth) {
+    const language = auth.current.user.language;
+    try {
+      const {
+        page,
+        limit,
+        order_by,
+        sort_by
+      } = body.all();
+
+      let offer = Offer.query();
+
+      offer = offer.where('interaction_id', id);
+
+      if (order_by && sort_by) {
+        offer = offer.orderBy(order_by, sort_by);
+      } else {
+        offer = offer.orderBy('created_at', 'asc');
+      }
+
+      offer = await offer.paginate(page, limit);
+
+      return new Response(offer);
+    } catch (e) {
+      Logger.transport('file').error('OfferService.getByInteractionId: ', e);
+      return new Response({
+        message: __('Cant get offer detail, please contact support', language)
+      }, 422);
+    }
+  }
+
     /**
    * Function get detail data offer base on slug
   **/
@@ -101,6 +136,7 @@ class OfferService {
       try {
         const { 
           user_id, 
+          interaction_id, 
           name, 
           description, 
           type, 
@@ -112,6 +148,7 @@ class OfferService {
         // create new offer
         const offer = new Offer();
         offer.user_id = user_id;
+        offer.interaction_id = interaction_id;
         offer.name = name;
         offer.description = description;
         offer.type = type;
@@ -143,7 +180,8 @@ class OfferService {
       const user = auth.current.user;
       try {
         const {
-          user_id, 
+          user_id,
+          interaction_id, 
           name, 
           description, 
           type, 
@@ -162,6 +200,7 @@ class OfferService {
 
         // check new value, if value not null/empty change value from database with new value
         if (user_id)  offer.user_id = user_id; 
+        if (interaction_id)  offer.interaction_id = interaction_id; 
         if (name)  offer.name = name; 
         if (description)  offer.description = description; 
         if (type)  offer.type = type; 
