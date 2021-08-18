@@ -37,7 +37,7 @@ class MediaController {
         console.log('data:', result.data.data)
         const filePath = result.data.data.url;
         console.log('path:', filePath)
-        const isExist = await Drive.exists(filePath);
+        const isExist = await Drive.exists(Helpers.publicPath('uploads')+'\\'+filePath);
 
         if (isExist) {
             Drive.delete(Helpers.publicPath('uploads')+'\\'+filePath);
