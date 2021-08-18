@@ -15,6 +15,11 @@ class OfferController {
     return response.status(result.status).send(result.data);
   }
 
+  async getByInteractionId({ request, response, params, auth }) {
+    const result = await OfferService.getByInteractionId(params.id, request, auth);
+    return response.status(result.status).send(result.data);
+  }
+
   async store({ auth, request, response }) {
     const result = await OfferService.create(request, auth);
     return response.status(result.status).send(result.data);
