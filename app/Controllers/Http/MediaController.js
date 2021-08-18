@@ -31,13 +31,17 @@ class MediaController {
         return response.status(result.status).send(result.data);
     }
 
-    async delete ({ params }) {
-        const filePath = `uploads/${params.fileName}`;
+    async destroy ({response, params, auth, request}) {
+        const id = params.id;
+        const result = await MediaService.delete(params.id, request, auth);
+        console.log('data:', result.data.data)
+        const filePath = Helpers.publicPath('uploads')+'\\'+result.data.data.url;
+        console.log('path:', filePath)
         const isExist = await Drive.exists(filePath);
 
         if (isExist) {
-            Drive.delete(`uploads/${params.fileName}`);
-            return 'File deleted';
+            Drive.delete(filePath);
+            return response.status(result.status).send(result.data);
         }
 
         return 'File does not exist';

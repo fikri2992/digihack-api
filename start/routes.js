@@ -50,6 +50,5 @@ Route.resource('media', 'MediaController').apiOnly().middleware(['auth']);
 Route.group(() => {
     Route.post('upload', 'MediaController.upload');
     Route.get('getImageUrlByUserId/:id', 'MediaController.getImageUrlByUserId');
-    Route.delete('delete/:fileName', 'FileController.delete');
 }).prefix('media').middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');

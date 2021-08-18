@@ -109,15 +109,25 @@ class MediaService {
   }
 
     /*
-      Delete User Offer
+      Delete Image
     */
     async delete(id, auth) {
       try {
-        await UserOffer.query().where('id', id).delete();
-        return new Response({ message: __('User Offer has been deleted') })
+        const media = await Media.query()
+        .select('url')
+        .where('id', id)
+        .first();
+
+        const url = media.toJSON();
+
+        await Media.query().where('id', id).delete();
+        return new Response({
+          data: url,
+          message: __('Media has been deleted') 
+        })
       } catch (e) {
-        Logger.transport('file').error('UserOfferService.delete: ', e)
-        return new Response({ message: __('Cant delete message, please contact support') }, 422)
+        Logger.transport('file').error('MediaService.delete: ', e)
+        return new Response({ message: __('Cant delete media, please contact support') }, 422)
       }
     }
     
