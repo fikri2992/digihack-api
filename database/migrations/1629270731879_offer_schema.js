@@ -14,7 +14,6 @@ class OfferSchema extends Schema {
       table.text('description').nullable();
       table.string('type', 100).nullable();
       table.text('content').nullable();
-      table.text('content').nullable();
       table.string('status', 100).nullable();
       table.boolean('is_published').defaultTo(false);
       table.integer('price').nullable();
