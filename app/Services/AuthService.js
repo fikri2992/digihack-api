@@ -235,6 +235,20 @@ class AuthService {
     }
   }
 
+   /*
+    Get Profile
+    */
+    async getProfile(auth) {
+      const lang = auth.current && auth.current.user ? auth.current.user.language : 'en';
+      try {
+        const user = auth.current.user;
+        const newUser = await User.query().where('id', user.id).first()
+        return new Response({ data: newUser });
+      } catch (e) {
+        Logger.transport('file').error('AuthService.getProfile: ', e);
+        return new Response({ message: __('Failed to access profile, please contact support', lang) }, 422);
+      }
+    }
 }
 
 module.exports = new AuthService()

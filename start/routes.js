@@ -23,6 +23,7 @@ Route.get('/', () => {
 Route.group(() => {
     Route.post('login', 'AuthController.login');
     Route.post('register', 'AuthController.register');
+    Route.get('getprofile', 'AuthController.findById').middleware(['auth']);
 }).prefix('auth'); // auth/login
 
 
@@ -49,6 +50,8 @@ Route.group(() => {
 }).prefix('userinteractions').middleware(['auth']);
 
 Route.resource('media', 'MediaController').apiOnly().middleware(['auth']);
+
+
 Route.group(() => {
     Route.post('upload', 'MediaController.upload');
     Route.get('getImageUrlByUserId/:id', 'MediaController.getImageUrlByUserId');
