@@ -96,6 +96,27 @@ class UserInteractionService {
     }
   }
 
+  /**
+   * Get user interaction count by interaction id
+   **/
+   async countByInteractionId(id, auth) {
+    const language = auth.current.user.language;
+    try {
+      const userInteraction = await UserInteraction.query()
+        .where('interaction_id', id)
+        .count('* as total_interactions');
+
+      return new Response({
+        data: userInteraction
+      });
+    } catch (e) {
+      Logger.transport('file').error('UserInteractionService.getById: ', e);
+      return new Response({
+        message: __('Cant get interaction count, please contact support', language)
+      }, 422);
+    }
+  }
+
     /**
      * Function create user interaction
     **/

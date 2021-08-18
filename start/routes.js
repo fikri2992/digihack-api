@@ -34,11 +34,13 @@ Route.group(() => {
     Route.get('getByOfferId/:id', 'UserOfferController.getByOfferId');
     Route.get('getByUserId/:id', 'UserOfferController.getByUserId');
     Route.get('getByClientId/:id', 'UserOfferController.getByClientId');
+    Route.get('countByOfferId/:id', 'UserOfferController.countByOfferId');
 }).prefix('useroffers').middleware(['auth']);
 
 Route.resource('userinteractions', 'UserInteractionController').apiOnly().middleware(['auth']);
 Route.group(() => {
     Route.get('getByInteractionId/:id', 'UserInteractionController.getByInteractionId');
+    Route.get('countByInteractionId/:id', 'UserInteractionController.countByInteractionId');
 }).prefix('userinteractions').middleware(['auth']);
 
 // Route.post('logout', 'AuthController.logout');

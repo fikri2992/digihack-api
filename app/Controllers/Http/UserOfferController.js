@@ -29,6 +29,11 @@ class UserOfferController {
     return response.status(result.status).send(result.data);
   }
 
+  async countByOfferId({ params, response, auth }) {
+    const result = await UserOfferService.countByOfferId(params.id, auth);
+    return response.status(result.status).send(result.data);
+  }
+
   async store({ auth, request, response }) {
     const result = await UserOfferService.create(request, auth);
     return response.status(result.status).send(result.data);

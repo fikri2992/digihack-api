@@ -14,6 +14,11 @@ class UserInteractionController {
     return response.status(result.status).send(result.data);
   }
 
+  async countByInteractionId({ params, response, auth }) {
+    const result = await UserInteractionService.countByInteractionId(params.id, auth);
+    return response.status(result.status).send(result.data);
+  }
+
   async getByInteractionId({ request, response, params, auth }) {
     const result = await UserInteractionService.getByInteractionId(params.id, request, auth);
     return response.status(result.status).send(result.data);

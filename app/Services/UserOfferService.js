@@ -97,6 +97,27 @@ class UserOfferService {
   }
 
   /**
+   * Get user offers count by offer id
+   **/
+   async countByOfferId(id, auth) {
+    const language = auth.current.user.language;
+    try {
+      const userOffer = await UserOffer.query()
+        .where('offer_id', id)
+        .count('* as total_offers');
+
+      return new Response({
+        data: userOffer
+      });
+    } catch (e) {
+      Logger.transport('file').error('UserOfferService.getById: ', e);
+      return new Response({
+        message: __('Cant get offer count, please contact support', language)
+      }, 422);
+    }
+  }
+
+  /**
    * Get detail user offer data by user id
    **/
      async getByUserId(id, body, auth) {
