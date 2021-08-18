@@ -7,6 +7,10 @@ class UserInteractionSchema extends Schema {
   up () {
     this.create('user_interactions', (table) => {
       table.increments()
+      table.integer('interaction_id').unsigned().references('id').inTable('interactions');
+      table.string('phone', 20).nullable();
+      table.string('content').text().nullable();
+      table.integer('price').nullable();
       table.timestamps()
     })
   }
