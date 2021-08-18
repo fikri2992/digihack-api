@@ -27,4 +27,5 @@ Route.group(() => {
 
 
 Route.resource('interactions', 'InteractionController').apiOnly().middleware(['auth']);
+Route.resource('offers', 'OfferController').apiOnly().middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');
