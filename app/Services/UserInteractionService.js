@@ -6,12 +6,12 @@ const Logger = use('Logger');
 const Hash = use('Hash');
 const __ = use('App/Helpers/string-localize');
 const passwordStrength = require('check-password-strength');
-
-
+const axios = require('axios');
+const crypto = require('crypto')
 class UserInteractionService {
   /**
    * Get all User Interaction data
-   **/
+  **/
   async getAll(body, auth) { //view all
     const language = auth.current.user.language;
     try {
@@ -129,9 +129,8 @@ class UserInteractionService {
           phone, 
           answer, 
           content,
-          
           price } = body.all();
-  
+        
         // create new user interaction
         const userInteraction = new UserInteraction();
         userInteraction.interaction_id = interaction_id;
@@ -209,10 +208,66 @@ class UserInteractionService {
         return new Response({ message: __('User interaction has been deleted') })
       } catch (e) {
         Logger.transport('file').error('UserInteractionService.delete: ', e)
-        return new Response({ message: __('Cant delete message, please contact support') }, 422)
+        return new Response({ 
+          
+          message: __('Cant delete message, please contact support') }, 422)
       }
     }
-    
+    async smsWebHook() {
+      try {
+        console.log('berhasil ga yah')
+      } catch (e) {
+      }
+    }
+    /*
+      create sms api
+    */
+    async sendSms(body) {
+      try {
+        const {
+          id,
+          message
+        } = body.all();
+        var dt = new Date();
+        dt.setMinutes(dt.getMinutes())
+        const url ='https://api.digitalcore.telkomsel.com/v1/send-sms'
+        // const hashDigest = sha256("mrmnthfehaujzndupfd59e3z" + "11gP2" + Math.round((new Date(dt)).getTime()/1000));
+        // const hmacDigest = Base64.stringify(hashDigest);
+        const signatureKey = crypto.createHash('sha256').update("mrmnthfehaujzndupfd59e3z" + "11gP2" + Math.floor(Date.now() / 1000)).digest('hex');
+        ;
+        console.log(signatureKey)
+        const data = {
+          "transaction": {
+            "transaction_id": "fikuritestasdasdawdwasdasdqweq1",
+            "callback_domain": "yourcompanydomain.com"
+          },
+          "sms": {
+            "sender_id": "DIGIHACK",
+            "recipient": "6285320666651",
+            "sms_text": message
+          }
+        }
+        
+        axios.post(url, {"body": data}, {
+          headers: {
+            'api_key': 'mrmnthfehaujzndupfd59e3z',
+            'x-signature': JSON.stringify(signatureKey),
+            'Content-Type': 'application/json',
+          }
+         }
+        ).then(response => {
+          // console.log(response)
+        })
+
+        return new Response({  status: 200, data:signatureKey, message: __('User interaction has been deleted') })
+
+      } catch (e) {
+        return new Response({ 
+          status: 422,
+          data: e,
+          message: __('User interaction has been deleted') })
+      }
+    }
 }
 
 module.exports = new UserInteractionService();

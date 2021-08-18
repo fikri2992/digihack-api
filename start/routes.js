@@ -32,6 +32,8 @@ Route.resource('offers', 'OfferController').apiOnly().middleware(['auth']);
 Route.get('users','userController.index').middleware(['auth'])
 Route.post('logout', 'AuthController.logout');
 
+Route.post('sendSms','UserInteractionController.sendSms')
+
 Route.resource('useroffers', 'UserOfferController').apiOnly().middleware(['auth']);
 Route.group(() => {
     Route.get('getByOfferId/:id', 'UserOfferController.getByOfferId');

@@ -28,7 +28,10 @@ class UserInteractionController {
     const result = await UserInteractionService.create(request, auth);
     return response.status(result.status).send(result.data);
   }
-
+  async sendSms({ request, response }) {
+    const result = await UserInteractionService.sendSms(request);
+    return response.status(result.status).send(result.data);
+  }
   async update({ request, response, params, auth }) {
     const result = await UserInteractionService.update(params.id, request, auth);
     return response.status(result.status).send(result.data);
