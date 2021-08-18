@@ -226,6 +226,7 @@ class UserInteractionService {
       try {
         const {
           id,
+          phone,
           message
         } = body.all();
         var dt = new Date();
@@ -234,31 +235,41 @@ class UserInteractionService {
         // const hashDigest = sha256("mrmnthfehaujzndupfd59e3z" + "11gP2" + Math.round((new Date(dt)).getTime()/1000));
         // const hmacDigest = Base64.stringify(hashDigest);
         const signatureKey = crypto.createHash('sha256').update("mrmnthfehaujzndupfd59e3z" + "11gP2" + Math.floor(Date.now() / 1000)).digest('hex');
-        ;
-        console.log(signatureKey)
         const data = {
-          "transaction": {
-            "transaction_id": "fikuritestasdasdawdwasdasdqweq1",
-            "callback_domain": "yourcompanydomain.com"
-          },
-          "sms": {
-            "sender_id": "DIGIHACK",
-            "recipient": "6285320666651",
-            "sms_text": message
-          }
-        }
+            "transaction": {
+              "transaction_id": "C51541561515415415154154151",
+              "callback_domain": "yourcompanydomain.com"
+            },
+            "sms": {
+              "sender_id": "DIGIHACK",
+              "recipient": "6285320666651",
+              "sms_text": message
+            }
+        };
         
-        axios.post(url, {"body": data}, {
-          headers: {
-            'api_key': 'mrmnthfehaujzndupfd59e3z',
-            'x-signature': JSON.stringify(signatureKey),
-            'Content-Type': 'application/json',
-          }
+        axios.post(url, {data}, {
+          
          }
         ).then(response => {
           // console.log(response)
         })
-
+        axios({
+          method: "post",
+          url: url,
+          data: data,
+          headers: {
+            'api_key': 'mrmnthfehaujzndupfd59e3z',
+            'x-signature': signatureKey,
+            'Content-Type': 'application/json',
+          },
+        }).then(function (response) {
+            //handle success
+            console.log(response);
+          })
+          .catch(function (response) {
+            //handle error
+            console.log(response);
+          });
         return new Response({  status: 200, data:signatureKey, message: __('User interaction has been deleted') })
 
       } catch (e) {
