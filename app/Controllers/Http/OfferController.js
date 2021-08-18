@@ -3,6 +3,7 @@
 const OfferService = use('App/Services/OfferService');
 const Logger = use('Logger');
 
+
 class OfferController {
   async index({ request, response, auth }) {
     const result = await OfferService.getAll(request, auth);
@@ -29,7 +30,7 @@ class OfferController {
     const result = await OfferService.delete(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
-
+  
 }
 
 module.exports = OfferController

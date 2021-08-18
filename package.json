@@ -39,6 +39,7 @@
     "adonis-throttle": "^2.3.6",
     "axios": "^0.20.0",
     "check-password-strength": "^1.0.15",
+    "crypto-js": "^4.1.1",
     "is-undefined": "^1.0.10",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.26.0",
