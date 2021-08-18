@@ -8,6 +8,7 @@ const __ = use('App/Helpers/string-localize');
 const passwordStrength = require('check-password-strength');
 const axios = require('axios');
 const crypto = require('crypto')
+const socket  = require('../../start/socket');
 class UserInteractionService {
   /**
    * Get all User Interaction data
@@ -142,7 +143,10 @@ class UserInteractionService {
   
         // get new data user interaction
         const createdInteraction =  await UserInteraction.query().where('id', userInteraction.id).first();
-  
+
+        const roomId = `room_interaction_${interaction_id}`;
+        await socket.to(roomId).emit('create', createdInteraction);
+
         return new Response({
           message: 'New User Interaction has been created',
           data: createdInteraction
