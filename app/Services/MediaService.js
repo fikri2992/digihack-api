@@ -56,7 +56,8 @@ class MediaService {
       // create new media
       const media = new Media();
       media.user_id = user_id;
-      media.url = Helpers.publicPath('uploads')+'\\'+mediaNameFormat;
+      media.url = mediaNameFormat;
+      console.log(mediaNameFormat)
       await media.save();
 
       // get new media
