@@ -129,6 +129,7 @@ class UserInteractionService {
           phone, 
           answer, 
           content,
+          
           price } = body.all();
   
         // create new user interaction
