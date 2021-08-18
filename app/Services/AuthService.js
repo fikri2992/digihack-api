@@ -234,7 +234,10 @@ class AuthService {
       return new Response({ message: __('Failed to change your password, please contact support', lang) }, 422);
     }
   }
+  
+  async getProfile() {
 
+  }
 }
 
 module.exports = new AuthService()

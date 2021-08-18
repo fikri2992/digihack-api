@@ -14,7 +14,7 @@ class MediaController {
             types: ['image'],
             size: '1mb',
         };
-
+        console.log(request.all())
         const result = await MediaService.upload(request, auth);
 
         const imageFile = request.file('file', validationOptions);
