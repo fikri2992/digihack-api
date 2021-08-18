@@ -54,12 +54,12 @@ class OfferService {
   async getById(id, auth) {
     const language = auth.current.user.language;
     try {
-      const Offer = await Offer.query()
+      const offer = await Offer.query()
         .where('id', id)
         .first();
 
       return new Response({
-        data: Offer
+        data: offer
       });
     } catch (e) {
       Logger.transport('file').error('OfferService.getById: ', e);
@@ -173,11 +173,11 @@ class OfferService {
         await offer.save();
 
         // get new data offer base on id after updated successfully
-        const updatedoffer =  await offer.query().where('id', offer.id).first();
+        const updatedOffer =  await Offer.query().where('id', offer.id).first();
 
         return new Response({
           message: 'New offer has been updated',
-          data: updatedoffer
+          data: updatedOffer
         });
       } catch (e) {
         Logger.transport('file').error('OfferService.create: ', e);
@@ -191,13 +191,12 @@ class OfferService {
       Delete Offer
     */
     async delete(id, auth) {
-      const lang = auth.current.user.language;
       try {
         await Offer.query().where('id', id).delete();
-        return new Response({ message: __('Offer has been deleted', lang) })
+        return new Response({ message: __('Offer has been deleted') })
       } catch (e) {
         Logger.transport('file').error('OfferService.delete: ', e)
-        return new Response({ message: __('Cant delete message, please contact support', lang) }, 422)
+        return new Response({ message: __('Cant delete message, please contact support') }, 422)
       }
     }
     
