@@ -8,7 +8,7 @@ class OfferSchema extends Schema {
     this.create('offers', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users');
-      table.integer('user_id').unsigned().references('id').inTable('users');
+      table.integer('client_id').unsigned().references('id').inTable('users');
       table.string('name', 255).nullable();
       table.string('slug', 255).nullable();
       table.text('description').nullable();
