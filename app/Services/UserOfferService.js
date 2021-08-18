@@ -65,16 +65,29 @@ class UserOfferService {
   /**
    * Get detail user offer data by offer id
    **/
-   async getByOfferId(id, auth) {
+   async getByOfferId(id, body, auth) {
     const language = auth.current.user.language;
     try {
-      const userOffer = await UserOffer.query()
-        .where('offer_id', id)
-        .first();
+      const {
+        page,
+        limit,
+        order_by,
+        sort_by
+      } = body.all();
 
-      return new Response({
-        data: userOffer
-      });
+      let userOffer = UserOffer.query();
+
+      userOffer = userOffer.where('offer_id', id);
+
+      if (order_by && sort_by) {
+        userOffer = userOffer.orderBy(order_by, sort_by);
+      } else {
+        userOffer = userOffer.orderBy('created_at', 'asc');
+      }
+
+      userOffer = await userOffer.paginate(page, limit);
+
+      return new Response(userOffer);
     } catch (e) {
       Logger.transport('file').error('UserOfferService.getByOfferId: ', e);
       return new Response({
@@ -86,45 +99,70 @@ class UserOfferService {
   /**
    * Get detail user offer data by user id
    **/
-   async getByUserId(id, auth) {
-    const language = auth.current.user.language;
-    try {
-      const userOffer = await UserOffer.query()
-        .where('user_id', id)
-        .first();
-
-      return new Response({
-        data: userOffer
-      });
-    } catch (e) {
-      Logger.transport('file').error('UserOfferService.getByUserId: ', e);
-      return new Response({
-        message: __('Cant get user offer detail, please contact support', language)
-      }, 422);
+     async getByUserId(id, body, auth) {
+      const language = auth.current.user.language;
+      try {
+        const {
+          page,
+          limit,
+          order_by,
+          sort_by
+        } = body.all();
+  
+        let userOffer = UserOffer.query();
+  
+        userOffer = userOffer.where('user_id', id);
+  
+        if (order_by && sort_by) {
+          userOffer = userOffer.orderBy(order_by, sort_by);
+        } else {
+          userOffer = userOffer.orderBy('created_at', 'asc');
+        }
+  
+        userOffer = await userOffer.paginate(page, limit);
+  
+        return new Response(userOffer);
+      } catch (e) {
+        Logger.transport('file').error('UserOfferService.getByUserId: ', e);
+        return new Response({
+          message: __('Cant get user offer detail, please contact support', language)
+        }, 422);
+      }
     }
-  }
 
   /**
-   * Get detail user offer data by client id
-   **/
-   async getByClientId(id, auth) {
+  * Get detail user offer data by client id
+  **/
+  async getByClientId(id, body, auth) {
     const language = auth.current.user.language;
-    try {
-      const userOffer = await UserOffer.query()
-        .where('client_id', id)
-        .first();
-
-      return new Response({
-        data: userOffer
-      });
-    } catch (e) {
-      Logger.transport('file').error('UserOfferService.getByClientId: ', e);
-      return new Response({
-        message: __('Cant get user offer detail, please contact support', language)
-      }, 422);
+      try {
+        const {
+          page,
+          limit,
+          order_by,
+          sort_by
+        } = body.all();
+    
+        let userOffer = UserOffer.query();
+    
+        userOffer = userOffer.where('client_id', id);
+    
+        if (order_by && sort_by) {
+          userOffer = userOffer.orderBy(order_by, sort_by);
+        } else {
+           userOffer = userOffer.orderBy('created_at', 'asc');
+        }
+    
+        userOffer = await userOffer.paginate(page, limit);
+    
+        return new Response(userOffer);
+      } catch (e) {
+        Logger.transport('file').error('UserOfferService.getByClientId: ', e);
+        return new Response({
+          message: __('Cant get user offer detail, please contact support', language)
+        }, 422);
+      }
     }
-  }
-
     /**
      * Function create user offer
     **/

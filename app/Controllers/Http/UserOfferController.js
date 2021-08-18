@@ -14,18 +14,18 @@ class UserOfferController {
     return response.status(result.status).send(result.data);
   }
 
-  async getByOfferId({ params, response, auth }) {
-    const result = await UserOfferService.getByOfferId(params.id, auth);
+  async getByOfferId({ request, response, params, auth }) {
+    const result = await UserOfferService.getByOfferId(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
 
-  async getByUserId({ params, response, auth }) {
-    const result = await UserOfferService.getByUserId(params.id, auth);
+  async getByUserId({ request, response, params, auth }) {
+    const result = await UserOfferService.getByUserId(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
 
-  async getByClientId({ params, response, auth }) {
-    const result = await UserOfferService.getByClientId(params.id, auth);
+  async getByClientId({ request, response, params, auth }) {
+    const result = await UserOfferService.getByClientId(params.id, request, auth);
     return response.status(result.status).send(result.data);
   }
 
