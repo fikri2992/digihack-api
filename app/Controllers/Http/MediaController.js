@@ -40,7 +40,7 @@ class MediaController {
         const isExist = await Drive.exists(filePath);
 
         if (isExist) {
-            Drive.delete((Helpers.publicPath('uploads')+'\\'+filePath);
+            Drive.delete(Helpers.publicPath('uploads')+'\\'+filePath);
             return response.status(result.status).send(result.data);
         }
 
