@@ -10,7 +10,7 @@ class UserInteractionSchema extends Schema {
       table.integer('interaction_id').unsigned().references('id').inTable('interactions');
       table.string('phone', 20).nullable();
       table.string('answer', 20).nullable();
-      table.string('content').text().nullable();
+      table.text('content').nullable();
       table.integer('price').nullable();
       table.timestamps()
     })
