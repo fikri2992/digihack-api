@@ -23,7 +23,7 @@ Route.get('/', () => {
 Route.group(() => {
     Route.post('login', 'AuthController.login');
     Route.post('register', 'AuthController.register');
-    Route.get('getprofile', 'AuthController.findById').middleware(['auth']);
+    Route.get('profile', 'AuthController.findById').middleware(['auth']);
 }).prefix('auth'); // auth/login
 
 

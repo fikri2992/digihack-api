@@ -6,7 +6,6 @@ io.on('connection', function(socket) {
   
   // Join
   socket.on('join', function(roomId) {
-
     socket.join(roomId);
   });
 
