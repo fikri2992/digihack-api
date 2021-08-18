@@ -23,4 +23,6 @@ Route.get('/', () => {
 Route.group(() => {
     Route.post('login', 'AuthController.login');
     Route.post('register', 'AuthController.register');
-}).prefix('auth');
+}).prefix('auth'); // auth/login
+
+// Route.post('logout', 'AuthController.logout');
