@@ -156,7 +156,6 @@ class AuthService {
         user.settings = JSON.stringify(userSettings);
         await user.save(trx);
         
-        
       } else {
         
         user.email = email;
