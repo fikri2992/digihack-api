@@ -28,4 +28,11 @@ Route.group(() => {
 
 Route.resource('interactions', 'InteractionController').apiOnly().middleware(['auth']);
 Route.resource('offers', 'OfferController').apiOnly().middleware(['auth']);
+Route.resource('useroffers', 'UserOfferController').apiOnly().middleware(['auth']);
+
+Route.group(() => {
+    Route.get('getByOfferId/:id', 'UserOfferController.getByOfferId');
+    Route.get('getByUserId/:id', 'UserOfferController.getByUserId');
+    Route.get('getByClientId/:id', 'UserOfferController.getByClientId');
+}).prefix('useroffers').middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');
