@@ -4,7 +4,6 @@ const io = use('socket.io')(Server.getInstance());
 
 io.on('connection', function(socket) {
   
-
   // Join
   socket.on('join', function(roomId){
     socket.join(roomId);
@@ -16,7 +15,6 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnecting', async () => {
-    removeDisplayAccess(socketData);
   });
 
 });
