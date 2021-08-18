@@ -48,4 +48,9 @@ Route.group(() => {
     Route.get('countByInteractionId/:id', 'UserInteractionController.countByInteractionId');
 }).prefix('userinteractions').middleware(['auth']);
 
+Route.resource('media', 'MediaController').apiOnly().middleware(['auth']);
+Route.group(() => {
+    Route.post('upload', 'MediaController.upload');
+    Route.get('getImageUrlByUserId/:id', 'MediaController.getImageUrlByUserId');
+}).prefix('media').middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');

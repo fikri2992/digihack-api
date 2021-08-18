@@ -2,6 +2,9 @@
 
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env')
+const providers = [
+  '@adonisjs/drive/providers/DriveProvider'
+]
 
 module.exports = {
 
