@@ -48,7 +48,7 @@ Route.group(() => {
     Route.get('countByOfferId/:id', 'UserOfferController.countByOfferId');
 }).prefix('useroffers').middleware(['auth']);
 
-Route.post('userinteractions/create', 'UserInteractionController.store');
+Route.post('userinteractions', 'UserInteractionController.store');
 
 Route.resource('userinteractions', 'UserInteractionController').apiOnly().middleware(['auth']);
 
