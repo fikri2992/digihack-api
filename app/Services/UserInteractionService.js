@@ -66,8 +66,7 @@ class UserInteractionService {
   /**
    * Get detail user interaction data by interaction id
    **/
-   async getByInteractionId(id, body, auth) {
-    const language = auth.current.user.language;
+   async getByInteractionId(id, body) {
     try {
       const {
         page,
@@ -86,13 +85,13 @@ class UserInteractionService {
         userInteraction = userInteraction.orderBy('created_at', 'asc');
       }
 
-      userInteraction = await userInteraction.paginate(page, limit);
+      userInteraction = await userInteraction.paginate(page, 2000);
 
       return new Response(userInteraction);
     } catch (e) {
       Logger.transport('file').error('UserInteractionService.getByInteractionId: ', e);
       return new Response({
-        message: __('Cant get user interaction detail, please contact support', language)
+        message: __('Cant get user interaction detail, please contact support')
       }, 422);
     }
   }
@@ -121,9 +120,7 @@ class UserInteractionService {
     /**
      * Function create user interaction
     **/
-    async create(body, auth) {
-      const user = auth.current.user;
-
+    async create(body) {
       try {
         const { 
           interaction_id, 
@@ -217,12 +214,6 @@ class UserInteractionService {
           message: __('Cant delete message, please contact support') }, 422)
       }
     }
-    async smsWebHook() {
-      try {
-        console.log('berhasil ga yah')
-      } catch (e) {
-      }
-    }
     /*
       create sms api
     */
@@ -241,12 +232,12 @@ class UserInteractionService {
         const signatureKey = crypto.createHash('sha256').update("mrmnthfehaujzndupfd59e3z" + "11gP2" + Math.floor(Date.now() / 1000)).digest('hex');
         const data = {
             "transaction": {
-              "transaction_id": "C51541561515415415154154151",
+              "transaction_id": "C51541561515415415154154151"+phone+message,
               "callback_domain": "yourcompanydomain.com"
             },
             "sms": {
               "sender_id": "DIGIHACK",
-              "recipient": "6285320666651",
+              "recipient": phone,
               "sms_text": message
             }
         };

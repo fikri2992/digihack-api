@@ -51,8 +51,7 @@ class InteractionService {
   /**
    * Get detail data user
    **/
-  async getById(id, auth) {
-    const language = auth.current.user.language;
+  async getById(id) {
     try {
       const interaction = await Interaction.query()
         .where('id', id)
@@ -64,7 +63,7 @@ class InteractionService {
     } catch (e) {
       Logger.transport('file').error('InteractionService.getById: ', e);
       return new Response({
-        message: __('Cant get detail Interaction, please contact support', language)
+        message: __('Cant get detail Interaction, please contact support')
       }, 422);
     }
   }

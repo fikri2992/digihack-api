@@ -10,7 +10,7 @@ class InteractionController {
   }
 
   async show({ params, response, auth }) {
-    const result = await InteractionService.getById(params.id, auth);
+    const result = await InteractionService.getById(params.id);
     return response.status(result.status).send(result.data);
   }
 

@@ -27,11 +27,12 @@ Route.group(() => {
 }).prefix('auth'); // auth/login
 
 
+Route.get('interactions/:id', 'InteractionController.show');
 Route.resource('interactions', 'InteractionController').apiOnly().middleware(['auth']);
+
 Route.resource('offers', 'OfferController').apiOnly().middleware(['auth']);
 Route.group(() => {
     Route.get('getByInteractionId/:id', 'OfferController.getByInteractionId');
-
 }).prefix('offers').middleware(['auth']);
 
 Route.get('users','userController.index').middleware(['auth'])
@@ -47,9 +48,14 @@ Route.group(() => {
     Route.get('countByOfferId/:id', 'UserOfferController.countByOfferId');
 }).prefix('useroffers').middleware(['auth']);
 
+Route.post('userinteractions/create', 'UserInteractionController.store');
+
 Route.resource('userinteractions', 'UserInteractionController').apiOnly().middleware(['auth']);
+
+Route.get('userinteractions/getByInteractionId/:id', 'UserInteractionController.getByInteractionId');
+
+
 Route.group(() => {
-    Route.get('getByInteractionId/:id', 'UserInteractionController.getByInteractionId');
     Route.get('countByInteractionId/:id', 'UserInteractionController.countByInteractionId');
 }).prefix('userinteractions').middleware(['auth']);
 

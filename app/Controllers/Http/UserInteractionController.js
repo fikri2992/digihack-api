@@ -20,12 +20,12 @@ class UserInteractionController {
   }
 
   async getByInteractionId({ request, response, params, auth }) {
-    const result = await UserInteractionService.getByInteractionId(params.id, request, auth);
+    const result = await UserInteractionService.getByInteractionId(params.id, request);
     return response.status(result.status).send(result.data);
   }
 
   async store({ auth, request, response }) {
-    const result = await UserInteractionService.create(request, auth);
+    const result = await UserInteractionService.create(request);
     return response.status(result.status).send(result.data);
   }
   async sendSms({ request, response }) {
