@@ -65,5 +65,7 @@ Route.resource('media', 'MediaController').apiOnly().middleware(['auth']);
 Route.group(() => {
     Route.post('upload', 'MediaController.upload');
     Route.get('getImageUrlByUserId/:id', 'MediaController.getImageUrlByUserId');
+    Route.get('getImageUrlByInteractionId/:id', 'MediaController.getImageUrlByInteractionId');
+    Route.get('getImageUrlByOfferId/:id', 'MediaController.getImageUrlByOfferId');
 }).prefix('media').middleware(['auth']);
 // Route.post('logout', 'AuthController.logout');

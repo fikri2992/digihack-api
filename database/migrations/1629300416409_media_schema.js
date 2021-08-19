@@ -8,6 +8,10 @@ class MediaSchema extends Schema {
     this.create('media', (table) => {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('Users');
+      table.integer('offer_id').nullable();
+      table.integer('interaction_id').nullable();
+      table.string('name', 255).nullable();
+      table.text('description').nullable();
       table.text('url').nullable();
       table.timestamps()
     })

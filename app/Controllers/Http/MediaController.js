@@ -31,6 +31,16 @@ class MediaController {
         return response.status(result.status).send(result.data);
     }
 
+    async getImageUrlByInteractionId ({ request, response, params, auth }) {
+        const result = await MediaService.getImageUrlByInteractionId(params.id, request, auth);
+        return response.status(result.status).send(result.data);
+    }
+
+    async getImageUrlByOfferId ({ request, response, params, auth }) {
+        const result = await MediaService.getImageUrlByOfferId(params.id, request, auth);
+        return response.status(result.status).send(result.data);
+    }
+
     async destroy ({response, params, auth, request}) {
         const id = params.id;
         const result = await MediaService.delete(params.id, request, auth);

@@ -47,6 +47,10 @@ class MediaService {
     try {
       const { 
         user_id,
+        interaction_id,
+        offer_id,
+        name,
+        description,
         filetype
       } = body.all();
       console.log(user_id, filetype)
@@ -56,6 +60,10 @@ class MediaService {
       // create new media
       const media = new Media();
       media.user_id = user_id;
+      media.interaction_id = interaction_id;
+      media.offer_id = offer_id;
+      media.name = name;
+      media.description = description;
       media.url = mediaNameFormat;
       console.log(mediaNameFormat)
       await media.save();
@@ -103,6 +111,74 @@ class MediaService {
 
       return new Response(media);
     } catch (e) {
+      Logger.transport('file').error('MediaService.getImageUrlByUserId: ', e);
+      return new Response({
+        message: __('Cant image url(s), please contact support', language)
+      }, 422);
+    }
+  }
+
+  /**
+   * Get media by interaction id
+   **/
+   async getImageUrlByInteractionId(id, body, auth) {
+    const language = auth.current.user.language;
+    try {
+      const {
+        page,
+        limit,
+        order_by,
+        sort_by
+      } = body.all();
+
+      let media = Media.query();
+
+      media = media.where('interaction_id', id);
+
+      if (order_by && sort_by) {
+        media = media.orderBy(order_by, sort_by);
+      } else {
+        media = media.orderBy('created_at', 'asc');
+      }
+
+      media = await media.paginate(page, limit);
+
+      return new Response(media);
+    } catch (e) {
+      Logger.transport('file').error('MediaService.getImageUrlByInteractionId: ', e);
+      return new Response({
+        message: __('Cant image url(s), please contact support', language)
+      }, 422);
+    }
+  }
+
+  /**
+   * Get media by offer id
+   **/
+   async getImageUrlByOfferId(id, body, auth) {
+    const language = auth.current.user.language;
+    try {
+      const {
+        page,
+        limit,
+        order_by,
+        sort_by
+      } = body.all();
+
+      let media = Media.query();
+
+      media = media.where('offer_id', id);
+
+      if (order_by && sort_by) {
+        media = media.orderBy(order_by, sort_by);
+      } else {
+        media = media.orderBy('created_at', 'asc');
+      }
+
+      media = await media.paginate(page, limit);
+
+      return new Response(media);
+    } catch (e) {
       Logger.transport('file').error('MediaService.getImageUrlByOfferId: ', e);
       return new Response({
         message: __('Cant image url(s), please contact support', language)
@@ -110,7 +186,7 @@ class MediaService {
     }
   }
 
-    /*
+  /*
       Delete Image
     */
     async delete(id, auth) {
