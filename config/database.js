@@ -51,11 +51,11 @@ module.exports = {
   mysql: {
     client: 'mysql',
     connection: {
-      host: Env.get('DB_HOST', 'localhost'),
-      port: Env.get('DB_PORT', ''),
-      user: Env.get('DB_USER', 'root'),
-      password: Env.get('DB_PASSWORD', ''),
-      database: Env.get('DB_DATABASE', 'adonis'),
+      host: Env.get('DB_HOST', 'mysql'),
+      port: Env.get('DB_PORT', 'silamban.c84yod2qg9aj.ap-southeast-1.rds.amazonaws.com'),
+      user: Env.get('DB_USER', 'admin'),
+      password: Env.get('DB_PASSWORD', 'qBR9fdKs60IjMKLyyrbh'),
+      database: Env.get('DB_DATABASE', 'silamban'),
     },
     // pool: {
     //   min: 10,
