@@ -6,7 +6,7 @@ package-lock.json
 tmp
 
 # Environment variables, never commit this file
-.env
+# .env
 
 # The development sqlite file
 database/*.sqlite
@@ -16,3 +16,7 @@ database/*.sqlite
 .idea
 
 node_modules
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
