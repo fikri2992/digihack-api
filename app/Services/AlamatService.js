@@ -3,17 +3,13 @@
 const Alamat = use('App/Models/Alamat');
 const Response = use('App/Class/Response');
 const Logger = use('Logger');
-const Hash = use('Hash');
 const __ = use('App/Helpers/string-localize');
-const passwordStrength = require('check-password-strength');
-
 
 class AlamatService {
   /**
    * Get detail data user
    **/
-  async getById(id, auth) {
-    const language = auth.current.user.language;
+  async getById(id) {
     try {
       const alamat = await Alamat.query()
         .where('id', id)
@@ -25,7 +21,7 @@ class AlamatService {
     } catch (e) {
       Logger.transport('file').error('alamatService.getById: ', e);
       return new Response({
-        message: __('Cant get alamat detail, please contact support', language)
+        message: __('Cant get alamat detail, please contact support', 'id')
       }, 422);
     }
   }
@@ -34,8 +30,7 @@ class AlamatService {
     /**
      * Function create alamat
     **/
-    async create(body, auth) {
-      const user = auth.current.user;
+    async create(body) {
       try {
         const { 
           detail,
@@ -72,7 +67,7 @@ class AlamatService {
       } catch (e) {
         Logger.transport('file').error('AlamatService.create: ', e);
         return new Response({
-          message: 'Cant create Offer, please contact support'
+          message: 'Cant create Alamat, please contact support'
         }, 422);
       }
     }

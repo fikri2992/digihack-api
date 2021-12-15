@@ -1,7 +1,7 @@
 'use strict'
 const Helpers = use('Helpers');
 
-class MediaController {
+class AlamatScoringController {
     async upload({ request, response, auth }) {
         const validationOptions = {
             types: ['image'],
@@ -22,4 +22,4 @@ class MediaController {
     }
 }
 
-module.exports = MediaController
+module.exports = AlamatScoringController

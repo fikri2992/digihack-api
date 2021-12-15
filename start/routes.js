@@ -25,6 +25,10 @@ Route.group(() => {
     Route.post('register', 'AuthController.register');
 }).prefix('auth'); // auth/login
 
+Route.post('alamat/create', 'AlamatController.store');
+Route.post('pengantaran/create/', 'PengantaranController.store');
+
+Route.get('alamat/:id', 'AlamatController.show');
 
 Route.post('logout', 'AuthController.logout');
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const Alamat = use('App/Models/Alamat');
+const AlamatScoring = use('App/Models/AlamatScoring');
 const Response = use('App/Class/Response');
 const Logger = use('Logger');
 const Hash = use('Hash');
@@ -8,19 +8,19 @@ const __ = use('App/Helpers/string-localize');
 const passwordStrength = require('check-password-strength');
 
 
-class AlamatService {
+class AlamatScoringService {
   /**
    * Get detail data user
    **/
   async getById(id, auth) {
     const language = auth.current.user.language;
     try {
-      const alamat = await Alamat.query()
+      const alamatScoring = await AlamatScoring.query()
         .where('id', id)
         .first();
 
       return new Response({
-        data: alamat
+        data: alamatScoring
       });
     } catch (e) {
       Logger.transport('file').error('alamatService.getById: ', e);
@@ -29,7 +29,7 @@ class AlamatService {
       }, 422);
     }
   }
-  
+
 
   /**
    * Function create alamat_scoring
@@ -38,32 +38,32 @@ class AlamatService {
     const user = auth.current.user;
     try {
       const { 
-        detail,
-        nama_penerima,
-        no_hp,
-        kode_pos,
-        kecamatan,
-        kota,
-        rt,
-        rw,
-        patokan,
+        alamat_id,
+        picture,
+        nilai_akses,
+        nilai_responsif,
+        nilai_keamanan,
+        total_sukses,
+        kekurangan,
+        kelebihan,
+        score_total,
       } = body.all();
 
       // create new Alamat
-      const alamat = new Alamat();
-      alamat.detail = detail;
-      alamat.nama_penerima = nama_penerima;
-      alamat.no_hp = no_hp;
-      alamat.kode_pos = kode_pos;
-      alamat.kecamatan = kecamatan;
-      alamat.kota = kota;
-      alamat.rt = rt;
-      alamat.rw = rw;
-      alamat.patokan = patokan;
+      const alamat = new AlamatScoring();
+      alamat.alamat_id = alamat_id;
+      alamat.picture = picture;
+      alamat.nilai_akses = nilai_akses;
+      alamat.nilai_responsif = nilai_responsif;
+      alamat.nilai_keamanan = nilai_keamanan;
+      alamat.total_sukses = total_sukses;
+      alamat.kekurangan = kekurangan;
+      alamat.kelebihan = kelebihan;
+      alamat.score_total = score_total;
       await alamat.save();
 
       // get new data alamat
-      const createdAlamat =  await Alamat.query().where('id', alamat.id).first();
+      const createdAlamat =  await AlamatScoring.query().where('id', alamat.id).first();
 
       return new Response({
         message: 'New Alamat has been created',
@@ -92,4 +92,4 @@ class AlamatService {
     
 }
 
-module.exports = new AlamatService();
+module.exports = new AlamatScoringService();
