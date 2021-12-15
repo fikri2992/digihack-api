@@ -64,7 +64,6 @@ class MediaService {
       media.name = name;
       media.description = description;
       media.url = mediaNameFormat;
-      console.log(mediaNameFormat)
       await media.save();
 
       // get new media
