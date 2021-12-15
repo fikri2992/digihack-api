@@ -14,15 +14,19 @@ class MediaController {
             types: ['image'],
             size: '1mb',
         };
-        console.log(request.all())
-        const result = await MediaService.upload(request, auth);
+        // const result = await MediaService.upload(request, auth);
 
         const imageFile = request.file('file', validationOptions);
         await imageFile.move(Helpers.publicPath('uploads'), {
-            name: result.data.fileName,
+            name: 'fikuri.jpg',
             overwrite: true,
         });
-
+        const result = {
+            data: {
+                name:'fikuri.jpg'
+            },
+            status: 200
+        }
         return response.status(result.status).send(result.data);
     }
 

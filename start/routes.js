@@ -28,7 +28,4 @@ Route.group(() => {
 
 Route.post('logout', 'AuthController.logout');
 
-Route.group(() => {
-    Route.post('upload', 'MediaController.upload');
-}).prefix('media').middleware(['auth']);
-// Route.post('logout', 'AuthController.logout');
+Route.post('upload', 'MediaController.upload');

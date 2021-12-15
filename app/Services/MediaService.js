@@ -53,7 +53,6 @@ class MediaService {
         description,
         filetype
       } = body.all();
-      console.log(user_id, filetype)
       let unix = Math.round(+new Date()/1000);
       const mediaNameFormat = unix+"-"+user_id+"."+filetype; 
 
