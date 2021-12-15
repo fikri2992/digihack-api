@@ -26,6 +26,8 @@ Route.group(() => {
 }).prefix('auth'); // auth/login
 
 Route.post('alamat/create', 'AlamatController.store');
+Route.post('alamatscoring/create', 'AlamatScoringController.store');
+
 Route.post('pengantaran/create/', 'PengantaranController.store');
 
 Route.get('alamat/:id', 'AlamatController.show');

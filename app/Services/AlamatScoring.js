@@ -6,7 +6,7 @@ const Logger = use('Logger');
 const Hash = use('Hash');
 const __ = use('App/Helpers/string-localize');
 const passwordStrength = require('check-password-strength');
-
+const Pengantaran = use('App/Models/Pengantaran');
 
 class AlamatScoringService {
     /**
@@ -42,12 +42,12 @@ class AlamatScoringService {
           nilai_akses,
           nilai_responsif,
           nilai_keamanan,
-          total_sukses,
           kekurangan,
           kelebihan,
           score_total,
         } = body.all();
-
+        let suksesCount = await Pengantaran.query().where('alamat_id', alamat_id).getCount()
+        if (!suksesCount) suksesCount= 0;
         // create new Alamat
         const alamatScoring = new AlamatScoring();
         alamatScoring.alamat_id = alamat_id;
@@ -55,7 +55,7 @@ class AlamatScoringService {
         alamatScoring.nilai_akses = nilai_akses;
         alamatScoring.nilai_responsif = nilai_responsif;
         alamatScoring.nilai_keamanan = nilai_keamanan;
-        alamatScoring.total_sukses = total_sukses;
+        alamatScoring.total_sukses = suksesCount;
         alamatScoring.kekurangan = kekurangan;
         alamatScoring.kelebihan = kelebihan;
         // let totalKekurangan = 0;
