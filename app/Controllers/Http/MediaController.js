@@ -1,6 +1,6 @@
 'use strict'
 const Helpers = use('Helpers');
-
+const Env = use('Env');
 class MediaController {
     async upload({ request, response, auth }) {
         const validationOptions = {
@@ -14,7 +14,7 @@ class MediaController {
         });
         const result = {
             data: {
-                name:request.input('file_name')
+                name: Env.get('APP_URL') + '/uploads/' +request.input('file_name')
             },
             status: 200
         }

@@ -1,6 +1,9 @@
 "use strict";
 
 const Alamat = use('App/Models/Alamat');
+const AlamatScoring = use('App/Models/AlamatScoring');
+const Database = use('Database');
+
 const Response = use('App/Class/Response');
 const Logger = use('Logger');
 const __ = use('App/Helpers/string-localize');
@@ -11,12 +14,14 @@ class AlamatService {
    **/
   async getById(id) {
     try {
-      const alamat = await Alamat.query()
-        .where('id', id)
-        .first();
-
+      const alamats = await Database
+        .from('alamat_scorings')
+        .where('alamat_id', id)
+        .orderBy('id', 'asc')
+        .limit(10)
+      console.log(alamats)
       return new Response({
-        data: alamat
+        data: alamats
       });
     } catch (e) {
       Logger.transport('file').error('alamatService.getById: ', e);
