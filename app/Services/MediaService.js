@@ -1,6 +1,6 @@
 "use strict";
 
-const Media = use('App/Models/media');
+const Media = use('App/Models/Media');
 const Response = use('App/Class/Response');
 const Logger = use('Logger');
 const Helpers = use('Helpers');
