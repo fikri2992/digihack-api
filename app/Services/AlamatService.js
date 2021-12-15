@@ -19,9 +19,46 @@ class AlamatService {
         .where('alamat_id', id)
         .orderBy('id', 'asc')
         .limit(10)
-      console.log(alamats)
+      // console.log(alamats)
+      let sumNilaiAkses = 0;
+      let avgNilaiAkses = 0;
+      let sumNilaiRespon = 0;
+      let avgNilaiRespon = 0;
+      let sumNilaiKeamanan = 0;
+      let avgNilaiKeamanan = 0;
+      let kekurangans = []
+      let kelebihans = []
+      let totalSukses = 0;
+      let pictures = []
+      for (let index = 0; index < alamats.length; index++) {
+        const element = alamats[index];
+        sumNilaiAkses += element.nilai_akses;
+        sumNilaiRespon += element.nilai_responsif;
+        sumNilaiKeamanan += element.nilai_keamanan;
+        kekurangans.push(element.kekurangan)
+        kelebihans.push(element.kelebihan)
+        pictures.push(element.picture)
+      }
+      avgNilaiAkses = sumNilaiAkses /alamats.length
+      avgNilaiRespon = sumNilaiRespon /alamats.length
+      avgNilaiKeamanan = sumNilaiKeamanan /alamats.length
+      totalSukses = Math.max.apply(Math, alamats.map(function(o) { return o.total_sukses; }))
+      kekurangans = kekurangans.filter((v,i) => kekurangans.indexOf(v) == i)
+      kekurangans = JSON.parse(kekurangans);
+      kelebihans = kelebihans.filter((v,i) => kelebihans.indexOf(v) == i)
+      kelebihans = JSON.parse(kelebihans);
+      
+      const data = {
+        pictures,
+        avg_nilai_akses: avgNilaiAkses,
+        avg_nilai_responsif: avgNilaiRespon,
+        avg_nilai_keamanan: avgNilaiKeamanan,
+        max_total_sukses: totalSukses,
+        kekurangans,
+        kelebihans,
+       }
       return new Response({
-        data: alamats
+        data: data
       });
     } catch (e) {
       Logger.transport('file').error('alamatService.getById: ', e);
